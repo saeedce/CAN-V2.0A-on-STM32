@@ -30,7 +30,8 @@ Message Reception: Configured with an interrupt handler to receive data on CAN_R
 This project encountered specific challenges:
 
 Timing Issues: Ensuring synchronization between nodes was critical; an incorrect timing configuration led to transmission failures, later resolved by adjusting the CAN timing parameters.
-Interrupt Handling: Configuring the interrupt callback for CAN2 proved challenging due to discrepancies in configuration settings, which required additional fine-tuning to achieve reliable message handling.
+
+Interrupt Handling: Configuring the interrupt callback for CAN2 proved challenging due to specific configuration requirements in STM32F4 microcontrollers. The primary issue was related to the shared filter banks between CAN1 and CAN2. In the STM32F4 series, filters 0-13 are allocated to CAN1, while filters 14 and above are necessary for CAN2. This required additional fine-tuning of the filter settings for CAN2 to ensure that messages were properly received and handled in CAN2, enabling reliable interrupt functionality.
 
 5. Results
 The implementation achieved stable communication between nodes, with the STM32F429 node successfully handling both transmission and reception of messages as per the specified modes. The LED on the STM32F100 confirmed message reception, allowing for easier debugging and validation of the communication.
